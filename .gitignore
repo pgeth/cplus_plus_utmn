@@ -1,0 +1,29 @@
+# Compiled binaries
+*.out
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+
+# Debug symbols
+*.dSYM/
+*.dSYM
+
+# Build directories
+build/
+cmake-build-*/
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Python (legacy)
+__pycache__/
+*.pyc
