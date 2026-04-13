@@ -1,8 +1,9 @@
 #include <fstream>
 #include <map>
-#include <set>
 #include <sstream>
 #include <string>
+#include <utility>
+#include <vector>
 
 int main()
 {
@@ -10,7 +11,8 @@ int main()
   std::ofstream out("output.txt");
 
   std::map<std::string, int> group_students;
-  std::map<std::string, std::set<std::string>> professor_groups;
+  std::map<std::string, std::vector<std::string>> professor_groups;
+  std::vector<std::string> professor_order;
 
   std::string line;
   while (std::getline(in, line))
@@ -23,7 +25,9 @@ int main()
     std::getline(ss, second, ';');
     if (std::getline(ss, third, ';'))
     {
-      professor_groups[id].insert(third);
+      if (professor_groups.find(id) == professor_groups.end())
+        professor_order.push_back(id);
+      professor_groups[id].push_back(third);
     }
     else
     {
@@ -33,10 +37,10 @@ int main()
 
   std::string best_id;
   int best_count = -1;
-  for (const auto &[prof, groups] : professor_groups)
+  for (const auto &prof : professor_order)
   {
     int total = 0;
-    for (const auto &g : groups)
+    for (const auto &g : professor_groups[prof])
     {
       auto it = group_students.find(g);
       if (it != group_students.end())
